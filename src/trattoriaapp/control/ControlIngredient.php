@@ -12,10 +12,11 @@ class ControlIngredient{
 
     public function addIngredient(Ingredient $ingredient){
         $listIngredients = $this->listIngredients();
-        $ingredient->setId(count($listIngredients));
+        $ingredient->setId(count($listIngredients)+1);
         $listIngredients[] = $ingredient;
+        print_r($listIngredients);
         $json_string = json_encode($listIngredients);
-        $file = 'ingredients.json';
+        $file = 'src/data/ingredients.json';
         file_put_contents($file, $json_string);
     }
 
@@ -42,11 +43,15 @@ class ControlIngredient{
         $listIngredients = $this->listIngredients();
         $listIngredients[$ingredient->getId()] = $ingredient;
         $json_string = json_encode($listIngredients);
-        $file = 'ingredients.json';
+        $file = 'src/data/ingredients.json';
         file_put_contents($file, $json_string);
     }
 
     public function deleteIngredient($id){
-        
+        $listIngredients = $this->listIngredients();
+        array_splice($listIngredients,$id-1,1);
+        $json_string = json_encode($listIngredients);
+        $file = 'src/data/ingredients.json';
+        file_put_contents($file, $json_string);
     }
 }
