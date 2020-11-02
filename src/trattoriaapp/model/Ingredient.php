@@ -5,14 +5,16 @@ namespace trattoriaapp\model;
 class Ingredient{
     private $id;
     private $nom;
-    private $prix;
-    private $poids;
+    private $prix_unitaire;
+    private $poids_unitaire;
+    private $stock;
 
-    public function __construct($id,$nom,$prix,$poids){
+    public function __construct($id,$nom,$prix_unitaire,$poids_unitaire,$stock){
         $this->id = $id;
         $this->nom = $nom;
-        $this->poids = $poids;
-        $this->prix = $prix;
+        $this->poids_unitaire = $poids_unitaire;
+        $this->prix_unitaire = $prix_unitaire;
+        $this->stock = $stock;
     }
 
     public function getId()
@@ -35,29 +37,39 @@ class Ingredient{
         $this->nom = $nom;
     }
 
-    public function getPrix()
+    public function getPrixUnitaire()
     {
-        return $this->prix;
+        return $this->prix_unitaire;
     }
 
-    public function setPrix($prix)
+
+    public function setPrixUnitaire($prix_unitaire)
     {
-        $this->prix = $prix;
+        $this->prix_unitaire = $prix_unitaire;
     }
 
-    public function getPoids()
+    public function getPoidsUnitaire()
     {
-        return $this->poids;
+        return $this->poids_unitaire;
     }
 
-    public function setPoids($poids)
+    public function setPoidsUnitaire($poids_unitaire)
     {
-        $this->poids = $poids;
+        $this->poids_unitaire = $poids_unitaire;
+    }
+
+    public function getStock()
+    {
+        return $this->stock;
+    }
+
+    public function setStock($stock)
+    {
+        $this->stock = $stock;
     }
 
     public function __toString(){
-        $chaine = "{'id':$this->id,\n'nom':'$this->nom',\n'poids':$this->poids,\n'prix':$this->prix\n}";
-        return $chaine;
+        return "{\"id\":$this->id,\"nom\":\"$this->nom\",\"poids_unitaire\":$this->poids_unitaire,\"prix_unitaire\":$this->prix_unitaire,\"stock\":$this->stock}";
     }
 
 }

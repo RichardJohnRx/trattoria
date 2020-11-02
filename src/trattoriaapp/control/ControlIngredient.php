@@ -14,10 +14,16 @@ class ControlIngredient{
         $listIngredients = $this->listIngredients();
         $ingredient->setId(count($listIngredients)+1);
         $listIngredients[] = $ingredient;
-        print_r($listIngredients);
-        $json_string = json_encode($listIngredients);
+        $json = '[';
+        foreach($listIngredients as $ingredient){
+            $json .= $ingredient;
+            if ($ingredient !== end($listIngredients)) {
+                $json .= ',';
+            }
+        }
+        $json .= ']';
         $file = 'src/data/ingredients.json';
-        file_put_contents($file, $json_string);
+        file_put_contents($file, $json);
     }
 
     public function listIngredients(){
@@ -25,7 +31,7 @@ class ControlIngredient{
         $ingredients = json_decode($data, true);
         $listIngredients = [];
         foreach ($ingredients as $ingredient){
-            $listIngredients[] = new \trattoriaapp\model\Ingredient($ingredient['id'],$ingredient['nom'],$ingredient['prix'],$ingredient['poids']);
+            $listIngredients[] = new \trattoriaapp\model\Ingredient($ingredient['id'],$ingredient['nom'],$ingredient['prix_unitaire'],$ingredient['poids_unitaire'],$ingredient['stock']);
         }
         return $listIngredients;
     }
@@ -37,21 +43,36 @@ class ControlIngredient{
                 return $ingredient;
             }
         }
+        return "L'ingredient n'est pas trouvé";
     }
 
     public function modifyIngredient(Ingredient $ingredient){
         $listIngredients = $this->listIngredients();
-        $listIngredients[$ingredient->getId()] = $ingredient;
-        $json_string = json_encode($listIngredients);
+        $listIngredients[$ingredient->getId()-1] = $ingredient;
+        $json = '[';
+        foreach($listIngredients as $ingredient){
+            $json .= $ingredient;
+            if ($ingredient !== end($listIngredients)) {
+                $json .= ',';
+            }
+        }
+        $json .= ']';
         $file = 'src/data/ingredients.json';
-        file_put_contents($file, $json_string);
+        file_put_contents($file, $json);
     }
 
     public function deleteIngredient($id){
         $listIngredients = $this->listIngredients();
-        array_splice($listIngredients,$id-1,1);
-        $json_string = json_encode($listIngredients);
+        unset($listIngredients[$id-1]);
+        $json = '[';
+        foreach($listIngredients as $ingredient){
+            $json .= $ingredient;
+            if ($ingredient !== end($listIngredients)) {
+                $json .= ',';
+            }
+        }
+        $json .= ']';
         $file = 'src/data/ingredients.json';
-        file_put_contents($file, $json_string);
+        file_put_contents($file, $json);
     }
 }
