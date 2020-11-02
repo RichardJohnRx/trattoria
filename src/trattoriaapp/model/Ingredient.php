@@ -55,6 +55,9 @@ class Ingredient{
         $this->poids = $poids;
     }
 
-
+    public function __toString(){
+        $chaine = "Id:$this->id\nNom:$this->nom\nPoids:$this->poids\nPrix:$this->prix\n";
+        return $chaine;
+    }
 
 }

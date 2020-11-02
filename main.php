@@ -4,6 +4,9 @@ use trattoriaapp\control\ControlIngredient;
 
 $obj = new \trattoriaapp\control\ControlIngredient();
 
-$obj->listIngredients();
+print_r($obj->listIngredients());
+echo $obj->searchIngredient(1);
+
+
 
 
