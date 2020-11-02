@@ -3,11 +3,11 @@
 namespace trattoriaapp\model;
 
 class Ingredient{
-    private $id;
-    private $nom;
-    private $prix_unitaire;
-    private $poids_unitaire;
-    private $stock;
+    public $id;
+    public $nom;
+    public $prix_unitaire;
+    public $poids_unitaire;
+    public $stock;
 
     public function __construct($id,$nom,$prix_unitaire,$poids_unitaire,$stock){
         $this->id = $id;
